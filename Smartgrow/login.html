@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log in – SmartGrow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#0d9488; --teal-dark:#0f766e; --teal-soft:#e6f7f5;
+  --navy:#0a1b3d; --navy-2:#13294f; --ink:#0b1a33; --muted:#64748b;
+  --line:#e5eaf0; --bg:#f4f7fa; --red:#dc2626;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+a{color:var(--teal-dark)}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+
+/* Left: form */
+.form-side{display:flex;flex-direction:column;padding:32px 56px;background:#fff}
+.logo{display:flex;align-items:center;gap:12px;font-size:26px;font-weight:700;letter-spacing:-.03em;text-decoration:none;color:var(--ink)}
+.logo-mark{width:47px;height:47px;border-radius:12px;background:var(--teal);display:grid;place-items:center;box-shadow:0 6px 14px rgba(13,148,136,.3)}
+.logo-mark svg{width:24px;height:24px}
+.logo b{color:var(--teal)}
+.form-box{margin:auto;width:100%;max-width:420px;padding:40px 0}
+h1{font-size:36px;letter-spacing:-.04em;font-weight:800;margin-bottom:10px}
+.sub{color:var(--muted);margin-bottom:34px}
+.field{margin-bottom:20px}
+label{display:block;font-weight:600;font-size:14px;margin-bottom:8px}
+.input{position:relative}
+input{width:100%;font:500 16px Inter,sans-serif;padding:15px 16px;border:1px solid #d5dde6;border-radius:12px;background:#fff;color:var(--ink);transition:border-color .2s,box-shadow .2s}
+input::placeholder{color:#9aa8b8;font-weight:400}
+input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 4px rgba(13,148,136,.15)}
+input.invalid{border-color:var(--red)}
+.error{color:var(--red);font-size:13px;margin-top:6px;min-height:0}
+.toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--muted);font:600 13px Inter,sans-serif;padding:8px 10px;border-radius:8px;cursor:pointer}
+.toggle:hover{color:var(--ink)}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:14px;margin:4px 0 26px}
+.row label{display:flex;align-items:center;gap:8px;font-weight:500;margin:0}
+.row input{width:auto;accent-color:var(--teal)}
+.btn{width:100%;font:600 17px Inter,sans-serif;padding:17px;border-radius:12px;border:0;background:var(--teal);color:#fff;cursor:pointer;box-shadow:0 8px 18px rgba(13,148,136,.28);transition:background .2s}
+.btn:hover{background:var(--teal-dark)}
+.success{display:none;margin-top:18px;padding:14px 16px;border-radius:12px;background:var(--teal-soft);color:var(--teal-dark);font-weight:600;font-size:15px}
+.switch{text-align:center;color:var(--muted);font-size:15px;margin-top:28px}
+.back{font-size:14px;color:var(--muted);text-decoration:none}
+
+/* Right: brand panel */
+.brand-side{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;padding:56px;position:relative;overflow:hidden}
+.brand-side::before{content:"";position:absolute;left:-110px;top:-110px;width:340px;height:340px;border-radius:50%;border:64px solid rgba(13,148,136,.12)}
+.brand-inner{position:relative;max-width:440px}
+.brand-inner h2{font-size:38px;line-height:1.15;letter-spacing:-.04em;font-weight:800;margin-bottom:18px}
+.brand-inner p{color:#9fb0c9;font-size:18px;line-height:1.7;margin-bottom:34px}
+.tip{background:var(--navy-2);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px 22px;display:flex;align-items:center;gap:16px}
+.tip .ic{width:44px;height:44px;border-radius:10px;background:#12394a;display:grid;place-items:center;font-size:20px;flex:none}
+.tip small{display:block;color:#9fb0c9;font-size:13px}
+.tip strong{font-size:16px}
+
+@media (max-width:860px){
+  body{grid-template-columns:1fr}
+  .brand-side{display:none}
+  .form-side{padding:24px}
+}
+</style>
+</head>
+<body>
+
+<section class="form-side">
+  <a href="index.html" class="logo">
+    <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 17.5 9 5 9-5" opacity=".6"/></svg></span>
+    <span>Smart<b>Grow</b></span>
+  </a>
+
+  <div class="form-box">
+    <h1 id="formTitle">Welcome back</h1>
+    <p class="sub" id="formSubtitle">Log in to see which products need your attention today.</p>
+
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+        <p class="error" id="emailError"></p>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="input">
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password">
+          <button type="button" class="toggle" id="toggle" aria-label="Show password">Show</button>
+        </div>
+        <p class="error" id="passwordError"></p>
+      </div>
+
+      <div class="row">
+        <span id="formHint">Use your registered email and password.</span>
+      </div>
+
+      <button type="submit" class="btn" id="submitButton">Log in</button>
+      <p class="success" id="success" role="status"></p>
+    </form>
+
+    <p class="switch"><span id="switchPrompt">New to SmartGrow?</span> <a href="#" id="modeToggle">Create an account</a></p>
+  </div>
+
+  <a href="index.html" class="back">← Back to home</a>
+</section>
+
+<section class="brand-side" aria-hidden="true">
+  <div class="brand-inner">
+    <h2>From raw stock data to confident decisions.</h2>
+    <p>SmartGrow turns everyday inventory information into clear priorities your team can act on.</p>
+    <div class="tip">
+      <span class="ic">⚠️</span>
+      <div><strong>Risk detected</strong><small>products expiring soon</small></div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function () {
+const supabase = window.supabase?.createClient
+  ? window.supabase.createClient(
+      'https://xmsssdotlklljvpoejkc.supabase.co',
+      'sb_publishable_pjV4teuCoAp7RIsM9FGqSg_rjD8WI1L'
+    )
+  : null;
+const form = document.getElementById('loginForm');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+const toggle = document.getElementById('toggle');
+const submitButton = document.getElementById('submitButton');
+const success = document.getElementById('success');
+const modeToggle = document.getElementById('modeToggle');
+let isSignUp = false;
+
+toggle.addEventListener('click', () => {
+  const show = password.type === 'password';
+  password.type = show ? 'text' : 'password';
+  toggle.textContent = show ? 'Hide' : 'Show';
+  toggle.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+});
+
+function setError(input, errorId, message) {
+  document.getElementById(errorId).textContent = message;
+  input.classList.toggle('invalid', Boolean(message));
+}
+
+function setMode(signUp) {
+  isSignUp = signUp;
+  document.getElementById('formTitle').textContent = signUp ? 'Create your account' : 'Welcome back';
+  document.getElementById('formSubtitle').textContent = signUp
+    ? 'Create an account to save your inventory reports.'
+    : 'Log in to see which products need your attention today.';
+  document.getElementById('formHint').textContent = signUp
+    ? 'Use an email address you can access to confirm your account.'
+    : 'Use your registered email and password.';
+  document.getElementById('switchPrompt').textContent = signUp
+    ? 'Already have an account?'
+    : 'New to SmartGrow?';
+  modeToggle.textContent = signUp ? 'Log in' : 'Create an account';
+  submitButton.textContent = signUp ? 'Create account' : 'Log in';
+  password.autocomplete = signUp ? 'new-password' : 'current-password';
+  success.style.display = 'none';
+  success.textContent = '';
+  setError(email, 'emailError', '');
+  setError(password, 'passwordError', '');
+}
+
+modeToggle.addEventListener('click', (event) => {
+  event.preventDefault();
+  setMode(!isSignUp);
+});
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const address = email.value.trim();
+  const p = password.value;
+  let ok = true;
+
+  if (!address) { setError(email, 'emailError', 'Enter your email address.'); ok = false; }
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)) {
+    setError(email, 'emailError', 'Enter a valid email address.');
+    ok = false;
+  } else setError(email, 'emailError', '');
+
+  if (!p) { setError(password, 'passwordError', 'Enter your password.'); ok = false; }
+  else if (p.length < 6) { setError(password, 'passwordError', 'Password must be at least 6 characters.'); ok = false; }
+  else setError(password, 'passwordError', '');
+
+  if (!ok) return;
+
+  if (!supabase) {
+    setError(email, 'emailError', 'Could not load Supabase. Check your internet connection and reload.');
+    return;
+  }
+
+  submitButton.disabled = true;
+  submitButton.textContent = isSignUp ? 'Creating account…' : 'Logging in…';
+  success.style.display = 'none';
+  success.textContent = '';
+
+  try {
+    if (isSignUp) {
+      const { data, error } = await supabase.auth.signUp({ email: address, password: p });
+      if (error) throw error;
+      if (!data.session) {
+        success.textContent = 'Account created. Confirm your email using the message from Supabase, then log in.';
+        success.style.display = 'block';
+        return;
+      }
+    } else {
+      const { error } = await supabase.auth.signInWithPassword({ email: address, password: p });
+      if (error) throw error;
+    }
+
+    window.location.assign('index.html');
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Login failed. Please try again.';
+    setError(email, 'emailError', message);
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = isSignUp ? 'Create account' : 'Log in';
+  }
+});
+})();
+</script>
+</body>
+</html>

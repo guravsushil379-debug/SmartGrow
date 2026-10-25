@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SmartGrow – Predict Inventory Risks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#0d9488; --teal-dark:#0f766e; --teal-soft:#e6f7f5; --teal-mid:#7fd6cc;
+  --navy:#0a1b3d; --navy-2:#13294f; --ink:#0b1a33; --muted:#64748b;
+  --line:#e5eaf0; --bg:#f4f7fa; --white:#fff;
+  --amber:#f5b942; --red:#ef6b6b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--white);line-height:1.5}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+ 
+/* Header */
+header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:91px}
+.logo{display:flex;align-items:center;gap:12px;font-size:26px;font-weight:700;letter-spacing:-.03em;text-decoration:none}
+.logo-mark{width:47px;height:47px;border-radius:12px;background:var(--teal);display:grid;place-items:center;box-shadow:0 6px 14px rgba(13,148,136,.3)}
+.logo-mark svg{width:24px;height:24px}
+.logo b{color:var(--teal)}
+nav ul{display:flex;align-items:center;gap:40px;list-style:none}
+nav a{font-weight:500;font-size:17px;text-decoration:underline;text-underline-offset:3px}
+nav a.active{color:var(--teal)}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 17px Inter,sans-serif;padding:16px 20px;border-radius:12px;border:1px solid transparent;text-decoration:none;cursor:pointer;transition:background .2s}
+.btn-primary{background:var(--teal);color:#fff;box-shadow:0 8px 18px rgba(13,148,136,.28)}
+.btn-primary:hover{background:var(--teal-dark)}
+.btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{background:var(--bg)}
+nav .btn{padding:14px 20px;text-decoration:none;margin-left:-8px}
+.account-wrap{position:relative}
+.account-button{width:42px;height:42px;border:0;border-radius:50%;background:var(--teal);color:#fff;font:700 15px Inter,sans-serif;cursor:pointer}
+.account-dropdown{position:absolute;right:0;top:calc(100% + 12px);width:220px;padding:14px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px rgba(10,27,61,.16);z-index:30}
+.account-email{overflow-wrap:anywhere;color:var(--muted);font-size:13px;margin-bottom:12px}
+.logout-button{width:100%;padding:9px 12px;border:0;border-radius:8px;background:var(--bg);color:var(--ink);font:600 14px Inter,sans-serif;text-align:left;cursor:pointer}
+.logout-button:hover{background:var(--teal-soft);color:var(--teal-dark)}
+ 
+/* Hero */
+.hero{background:linear-gradient(180deg,#f4f7fa,#fff);padding:110px 0 100px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:10px 18px 10px 12px;border:1px solid var(--line);border-radius:999px;background:var(--teal-soft);color:var(--teal-dark);font-weight:600;font-size:15px}
+h1{font-size:clamp(44px,6vw,64px);line-height:1.08;letter-spacing:-.045em;font-weight:800;margin:34px 0 28px}
+h1 em{font-style:normal;color:var(--teal);background:linear-gradient(transparent 88%,var(--teal-soft) 88%)}
+.lead{font-size:20px;color:var(--muted);max-width:580px;line-height:1.8}
+.hero-actions{display:flex;gap:14px;margin:40px 0 24px;flex-wrap:wrap}
+.hero-actions .btn{padding:20px 26px}
+.checks{display:flex;gap:28px;color:var(--muted);font-size:15px;flex-wrap:wrap}
+.checks span::before{content:"✓";color:var(--teal);margin-right:8px;font-weight:700}
+ 
+/* Dashboard mock */
+.mock-wrap{position:relative}
+.mock{display:flex;background:#fff;border-radius:18px;box-shadow:0 30px 70px rgba(10,27,61,.14);border:1px solid var(--line);overflow:hidden;min-height:370px}
+.side{width:54px;background:var(--navy);padding:14px 0;display:flex;flex-direction:column;align-items:center;gap:20px}
+.side i{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.08)}
+.side i:first-child{background:var(--teal)}
+.main{flex:1;padding:14px 18px;background:#fbfcfd;min-width:0}
+.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.mhead strong{font-size:12px}.mhead small{display:block;font-size:8px;color:var(--muted)}
+.mhead .search{width:110px;height:26px;border-radius:8px;background:#eef2f6;margin-left:auto;margin-right:10px}
+.avatar{width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:8px;font-weight:700;display:grid;place-items:center}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;gap:8px;align-items:center}
+.stat .ic{width:24px;height:24px;border-radius:7px;flex:none}
+.stat small{display:block;font-size:7px;color:var(--muted)}
+.stat b{font-size:15px;letter-spacing:-.02em}
+.panels{display:grid;grid-template-columns:.9fr 1.3fr;gap:10px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}
+.panel h4{font-size:10px}.panel small{font-size:7px;color:var(--muted)}
+.donut-row{display:flex;align-items:center;gap:14px;margin-top:10px}
+.donut{width:100px;height:100px;border-radius:50%;flex:none;display:grid;place-items:center;
+  background:conic-gradient(var(--red) 0 4%,var(--amber) 4% 14%,var(--teal-mid) 14% 36%,var(--teal) 36% 100%)}
+.donut div{width:68px;height:68px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;font-weight:700;font-size:17px;line-height:1}
+.donut small{display:block;font-size:6px;font-weight:400}
+.legend{font-size:7px;color:var(--muted);display:grid;gap:7px}
+.legend span::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:5px;background:var(--c)}
+.bars{display:flex;align-items:flex-end;gap:16px;height:96px;margin-top:12px;padding-left:4px;border-bottom:1px solid var(--line)}
+.bars i{flex:1;border-radius:3px 3px 0 0;background:var(--teal-mid);opacity:.55}
+.bars i:last-child{background:var(--teal);opacity:1}
+.alert-bar{margin-top:8px;background:#fff7e6;border-radius:6px;font-size:7px;color:#9a6b00;padding:6px 8px;display:flex;justify-content:space-between}
+.float{position:absolute;background:#fff;border-radius:14px;box-shadow:0 14px 34px rgba(10,27,61,.14);border:1px solid var(--line);padding:14px 18px;display:flex;align-items:center;gap:14px;font-size:12px}
+.float small{display:block;color:var(--muted);font-size:10px}
+.float .ic{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:18px}
+.f-risk{left:-24px;top:90px}.f-risk .ic{background:#fdeedd}
+.f-save{right:-20px;bottom:-34px}.f-save .ic{background:var(--teal-soft);color:var(--teal)}
+ 
+/* Features */
+.features{padding:100px 0 80px}
+.center{text-align:center}
+.eyebrow{color:var(--teal);font-weight:700;font-size:14px;letter-spacing:.14em;text-transform:uppercase}
+h2{font-size:clamp(32px,4vw,44px);letter-spacing:-.04em;font-weight:800;margin:16px 0}
+.sub{color:var(--muted);font-size:19px;max-width:840px;margin:0 auto}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:30px;margin-top:70px}
+.card{position:relative;border:1px solid var(--line);border-radius:22px;padding:32px;min-height:346px;display:flex;flex-direction:column;background:#fff}
+.card .num{position:absolute;top:26px;right:32px;font-size:44px;font-weight:800;color:#eef2f6}
+.card .ic{width:60px;height:60px;border-radius:14px;background:var(--teal-soft);border:1px solid #d3efec;display:grid;place-items:center;margin-bottom:30px}
+.card .ic svg{width:28px;height:28px;stroke:var(--teal);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font-size:22px;letter-spacing:-.02em;margin-bottom:12px}
+.card p{color:var(--muted);font-size:16.5px;max-width:560px}
+.card a{margin-top:auto;color:var(--teal-dark);font-weight:600;font-size:15px}
+ 
+/* How it works */
+.how{background:var(--bg);padding:30px 0 60px}
+.how-box{background:var(--navy);border-radius:36px;padding:100px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;color:#fff;position:relative;overflow:hidden}
+.how-box::before{content:"";position:absolute;left:-90px;top:-90px;width:300px;height:300px;border-radius:50%;border:60px solid rgba(13,148,136,.12)}
+.how-box .eyebrow{color:#3fd0c0;position:relative}
+.how-box h2{font-size:clamp(34px,4vw,46px);line-height:1.15;margin:20px 0 26px;position:relative}
+.how-box p.lead{color:#9fb0c9;font-size:19px;line-height:1.7;position:relative}
+.steps{display:grid;gap:16px;position:relative}
+.step{background:var(--navy-2);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:26px;display:flex;gap:18px}
+.step span{flex:none;width:44px;height:44px;border-radius:10px;background:#12394a;color:#3fd0c0;font-weight:700;font-size:14px;display:grid;place-items:center}
+.step h3{font-size:19px;margin-bottom:6px}
+.step p{color:#9fb0c9;font-size:15px}
+ 
+/* CTA */
+.cta{background:#fff;border-radius:28px 28px 0 0;padding:90px 0 110px}
+.cta h2{margin-bottom:28px}
+ 
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:14px;text-align:center}
+ 
+@media (max-width:980px){
+  nav ul li:not(:last-child){display:none}
+  .hero-grid,.how-box{grid-template-columns:1fr}
+  .how-box{padding:50px 28px;gap:40px}
+  .cards{grid-template-columns:1fr}
+  .f-risk{left:0}.f-save{right:0}
+}
+@media (max-width:560px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .panels{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+ 
+<header>
+  <div class="wrap nav">
+    <a href="#home" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 17.5 9 5 9-5" opacity=".6"/></svg></span>
+      <span>Smart<b>Grow</b></span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="getstarted.html" class="btn btn-primary">Get Started <span aria-hidden="true">→</span></a></li>
+        <li id="loginNavItem"><a href="login.html">Log in</a></li>
+        <li id="accountNavItem" class="account-wrap" hidden>
+          <button type="button" class="account-button" id="accountButton" aria-label="Account menu" aria-expanded="false" aria-controls="accountDropdown"></button>
+          <div class="account-dropdown" id="accountDropdown" hidden>
+            <p class="account-email" id="accountEmail"></p>
+            <button type="button" class="logout-button" id="logoutButton">Log out</button>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+ 
+<main>
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="pill">✦ Smarter inventory decisions</span>
+        <h1>Predict Inventory Risks. <em>Take Action</em> Before It’s Late.</h1>
+        <p class="lead">Monitor inventory, detect expiry risks, forecast stockouts, and get actionable recommendations to reduce business losses.</p>
+        <div class="hero-actions">
+          <a href="getstarted.html" class="btn btn-primary">Get Started <span aria-hidden="true">→</span></a>
+          <a href="#demo" class="btn btn-ghost">▶&nbsp; View Demo</a>
+        </div>
+        <div class="checks"><span>Easy to set up</span><span>No credit card required</span></div>
+      </div>
+ 
+      <div class="mock-wrap" aria-hidden="true">
+        <div class="mock">
+          <div class="side"><i></i><i></i><i></i><i></i></div>
+          <div class="main">
+            <div class="mhead">
+              <div><strong>Inventory Overview</strong><small>Monday, 20 May</small></div>
+              <span class="search"></span><span class="avatar">AK</span>
+            </div>
+            <div class="stats">
+              <div class="stat"><span class="ic" style="background:#e3edff"></span><div><small>Total Products</small><b>128</b></div></div>
+              <div class="stat"><span class="ic" style="background:#fde3e3"></span><div><small>High-Risk Items</small><b>12</b></div></div>
+              <div class="stat"><span class="ic" style="background:#fdf0cf"></span><div><small>Expiring Soon</small><b>18</b></div></div>
+              <div class="stat"><span class="ic" style="background:var(--teal-soft)"></span><div><small>Estimated Loss</small><b>₹42,600</b></div></div>
+            </div>
+            <div class="panels">
+              <div class="panel">
+                <h4>Risk Distribution</h4><small>Current inventory health</small>
+                <div class="donut-row">
+                  <div class="donut"><div><span>128<small>Items</small></span></div></div>
+                  <div class="legend">
+                    <span style="--c:var(--teal)">Healthy</span>
+                    <span style="--c:var(--teal-mid)">Low Risk</span>
+                    <span style="--c:var(--amber)">At Risk</span>
+                    <span style="--c:var(--red)">Critical</span>
+                  </div>
+                </div>
+              </div>
+              <div class="panel">
+                <h4>Stockout Forecast</h4><small>Organic Oat Milk · SKU 4821</small>
+                <div class="bars"><i style="height:92%"></i><i style="height:78%"></i><i style="height:64%"></i><i style="height:44%"></i><i style="height:30%"></i><i style="height:18%"></i></div>
+                <div class="alert-bar"><span>Predicted stockout in 24 days</span><b>View action</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="float f-risk"><span class="ic">⚠️</span><div><strong>Risk detected</strong><small>18 products expiring soon</small></div></div>
+        <div class="float f-save"><span class="ic">↗</span><div><strong>₹28,400 saved</strong><small>This month</small></div></div>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="features" id="features">
+    <div class="wrap">
+      <div class="center">
+        <p class="eyebrow">Everything you need</p>
+        <h2>Stay ahead of every inventory risk</h2>
+        <p class="sub">One intelligent platform to protect your stock, improve cash flow, and make every inventory decision count.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <span class="num">01</span>
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 17.5 9 5 9-5"/></svg></div>
+          <h3>Inventory Risk Analysis</h3>
+          <p>Detect expiry, low-stock, slow-moving, and financial risks before they impact your bottom line.</p>
+          <a href="#">Learn more ›</a>
+        </article>
+        <article class="card">
+          <span class="num">02</span>
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg></div>
+          <h3>Demand Forecasting</h3>
+          <p>Estimate sales velocity, stockout dates, and optimal reorder quantities with confidence.</p>
+          <a href="#">Learn more ›</a>
+        </article>
+        <article class="card">
+          <span class="num">03</span>
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2"/></svg></div>
+          <h3>Smart Recommendations</h3>
+          <p>Get clear next steps, from discounting near-expiry stock to reordering at the right time.</p>
+          <a href="#">Learn more ›</a>
+        </article>
+        <article class="card">
+          <span class="num">04</span>
+          <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M20 20h.01"/></svg></div>
+          <h3>Batch Scanning</h3>
+          <p>Scan product batches and expiry dates to keep your records accurate in seconds.</p>
+          <a href="#">Learn more ›</a>
+        </article>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="how" id="how">
+    <div class="wrap">
+      <div class="how-box">
+        <div>
+          <p class="eyebrow">How it works</p>
+          <h2>From raw stock data to confident decisions.</h2>
+          <p class="lead">SmartGrow turns everyday inventory information into clear priorities your team can act on.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><span>01</span><div><h3>Connect your inventory</h3><p>Import products or scan batches in seconds.</p></div></div>
+          <div class="step"><span>02</span><div><h3>Understand the risks</h3><p>See what needs attention and why it matters.</p></div></div>
+          <div class="step"><span>03</span><div><h3>Take the right action</h3><p>Follow practical, data-backed recommendations.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="cta" id="start">
+    <div class="wrap">
+      <p class="eyebrow">Ready to get started?</p>
+      <h2>Stop losing money to stock you could have saved.</h2>
+      <a href="getstarted.html" class="btn btn-primary">Get Started <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</main>
+ 
+<footer id="about"><div class="wrap">© 2026 SmartGrow. All rights reserved.</div></footer>
+ 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function () {
+const supabase = window.supabase?.createClient
+  ? window.supabase.createClient(
+      'https://xmsssdotlklljvpoejkc.supabase.co',
+      'sb_publishable_pjV4teuCoAp7RIsM9FGqSg_rjD8WI1L'
+    )
+  : null;
+const loginNavItem = document.getElementById('loginNavItem');
+const accountNavItem = document.getElementById('accountNavItem');
+const accountButton = document.getElementById('accountButton');
+const accountDropdown = document.getElementById('accountDropdown');
+
+function showAccount(user) {
+  loginNavItem.hidden = Boolean(user);
+  accountNavItem.hidden = !user;
+  if (user) {
+    const username = user.user_metadata?.username || user.email?.split('@')[0] || 'Account';
+    accountButton.textContent = username.charAt(0).toUpperCase();
+    accountButton.title = username;
+    document.getElementById('accountEmail').textContent = username;
+  } else {
+    accountDropdown.hidden = true;
+    accountButton.setAttribute('aria-expanded', 'false');
+  }
+}
+
+accountButton.addEventListener('click', () => {
+  accountDropdown.hidden = !accountDropdown.hidden;
+  accountButton.setAttribute('aria-expanded', String(!accountDropdown.hidden));
+});
+
+document.addEventListener('click', (event) => {
+  if (!accountNavItem.contains(event.target)) {
+    accountDropdown.hidden = true;
+    accountButton.setAttribute('aria-expanded', 'false');
+  }
+});
+
+document.getElementById('logoutButton').addEventListener('click', async () => {
+  if (!supabase) {
+    alert('Could not load Supabase. Check your internet connection and reload.');
+    return;
+  }
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    alert(`Could not log out: ${error.message}`);
+    return;
+  }
+  window.location.assign('index.html');
+});
+
+if (supabase) {
+  supabase.auth.onAuthStateChange((_event, session) => showAccount(session?.user ?? null));
+  supabase.auth.getSession().then(({ data, error }) => {
+    if (error) {
+      console.error('Could not read the Supabase session:', error);
+      return;
+    }
+    showAccount(data.session?.user ?? null);
+  });
+} else {
+  showAccount(null);
+}
+})();
+</script>
+</body>
+</html>
+ 

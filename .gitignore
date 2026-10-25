@@ -1,0 +1,16 @@
+# Maven build output
+Backend/target/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Java build artifacts
+*.class
+*.jar
+
+# Logs and OS files
+*.log
+Thumbs.db
+.DS_Store

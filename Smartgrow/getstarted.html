@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Started – SmartGrow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#0d9488;--teal-dark:#0f766e;--teal-soft:#e6f7f5;--teal-mid:#7fd6cc;--navy:#0a1b3d;--ink:#0b1a33;--muted:#64748b;--line:#e5eaf0;--bg:#f4f7fa;--amber:#f5b942;--red:#ef6b6b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:91px;max-width:1240px;margin:0 auto;padding:0 24px}
+.logo{display:flex;align-items:center;gap:12px;font-size:26px;font-weight:700;letter-spacing:-.03em;text-decoration:none}
+.logo-mark{width:47px;height:47px;border-radius:12px;background:var(--teal);display:grid;place-items:center;box-shadow:0 6px 14px rgba(13,148,136,.3)}
+.logo-mark svg{width:24px;height:24px}.logo b{color:var(--teal)}
+nav ul{display:flex;align-items:center;gap:40px;list-style:none}
+nav a{font-weight:500;font-size:17px;text-decoration:underline;text-underline-offset:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:600 16px Inter,sans-serif;padding:14px 22px;border-radius:12px;border:1px solid transparent;text-decoration:none;cursor:pointer;transition:background .2s}
+.btn-primary{background:var(--teal);color:#fff;box-shadow:0 8px 18px rgba(13,148,136,.28)}
+.btn-primary:hover{background:var(--teal-dark)}
+.btn-ghost{background:#fff;color:var(--ink);border-color:#d5dde6}
+.btn-ghost:hover{background:var(--bg)}
+nav .btn{text-decoration:none}
+.account-wrap{position:relative}
+.account-button{width:42px;height:42px;border:0;border-radius:50%;background:var(--teal);color:#fff;font:700 15px Inter,sans-serif;cursor:pointer}
+.account-dropdown{position:absolute;right:0;top:calc(100% + 12px);width:220px;padding:14px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px rgba(10,27,61,.16);z-index:30}
+.account-email{overflow-wrap:anywhere;color:var(--muted);font-size:13px;margin-bottom:12px}
+.logout-button{width:100%;padding:9px 12px;border:0;border-radius:8px;background:var(--bg);color:var(--ink);font:600 14px Inter,sans-serif;text-align:left;cursor:pointer}
+.logout-button:hover{background:var(--teal-soft);color:var(--teal-dark)}
+
+main{padding:48px 0 90px}
+.steps{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap}
+.stepi{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:var(--muted)}
+.stepi span{width:32px;height:32px;border-radius:9px;background:#e8eef4;display:grid;place-items:center;font-size:13px}
+.stepi.active{color:var(--ink)}.stepi.active span{background:var(--teal);color:#fff}
+.stepi.done span{background:var(--teal-soft);color:var(--teal-dark)}
+.stepi+.stepi::before{content:"";width:36px;height:2px;background:var(--line);margin-right:2px}
+
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:40px}
+h1{font-size:clamp(28px,4vw,38px);letter-spacing:-.04em;font-weight:800;margin-bottom:10px}
+.sub{color:var(--muted);font-size:17px;margin-bottom:30px;max-width:640px}
+label{display:block;font-weight:600;font-size:13px;margin-bottom:6px}
+input{width:100%;font:500 15px Inter,sans-serif;padding:13px 14px;border:1px solid #d5dde6;border-radius:10px;background:#fff;color:var(--ink)}
+input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 4px rgba(13,148,136,.15)}
+input[readonly]{background:var(--bg);color:var(--teal-dark);font-weight:700}
+.bizbox{max-width:460px}
+.bizbox input{font-size:17px;padding:16px}
+.actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;align-items:center}
+.error{color:#dc2626;font-size:14px;font-weight:500}
+.hidden{display:none!important}
+
+.period{display:flex;align-items:end;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+.period div{width:220px}
+.prow{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1.1fr 40px;gap:12px;align-items:end;padding:16px;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;background:#fbfcfd}
+.rm{height:44px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--muted);cursor:pointer;font-size:15px}
+.rm:hover{color:#dc2626;border-color:#f3b4b4}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0}
+.stat{border:1px solid var(--line);border-radius:14px;padding:18px;background:#fbfcfd}
+.stat small{display:block;color:var(--muted);font-size:13px;font-weight:500}
+.stat b{font-size:28px;letter-spacing:-.03em}
+.dist{display:flex;align-items:center;gap:30px;border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:26px;flex-wrap:wrap}
+.donut{width:130px;height:130px;border-radius:50%;display:grid;place-items:center;flex:none}
+.donut div{width:90px;height:90px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;font-weight:800;font-size:24px;line-height:1.1}
+.donut small{display:block;font-size:11px;font-weight:500;color:var(--muted)}
+.legend{display:grid;grid-template-columns:repeat(2,auto);gap:10px 34px;font-size:14px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;background:var(--c)}
+.legend b{color:var(--ink);margin-left:6px}
+.src{margin-left:auto;font-size:13px;color:var(--muted);background:var(--bg);padding:8px 12px;border-radius:999px}
+
+.res{display:grid;grid-template-columns:1.3fr 1fr 2.2fr;gap:20px;padding:20px;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;align-items:start}
+.res h3{font-size:17px;margin-bottom:4px}
+.meta{font-size:13px;color:var(--muted)}
+.score{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bar{flex:1;height:8px;border-radius:99px;background:#eef2f6;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--c)}
+.score b{font-size:15px;min-width:34px}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--bgc);color:var(--fgc)}
+.sug{background:var(--teal-soft);border-radius:12px;padding:14px 16px;font-size:14.5px}
+.sug strong{display:block;color:var(--teal-dark);margin-bottom:3px;font-size:13px}
+.ai-plan{grid-column:1/-1;background:#f3f7ff;border:1px solid #dce7fb;border-radius:12px;padding:14px 16px}
+.ai-plan strong{display:block;color:#244477;margin-bottom:7px;font-size:13px}
+.ai-plan ul{padding-left:20px;color:#35445c;font-size:14px}
+.ai-plan li+li{margin-top:4px}
+.report-status{font-size:14px;color:var(--muted);margin-top:16px}
+.report-status.error{color:#b42318}
+.pdf-only{display:none}
+.lv-Healthy{--c:var(--teal);--bgc:#d9f3ef;--fgc:#0f766e}
+.lv-Low{--c:var(--teal-mid);--bgc:#e4f6f3;--fgc:#0f766e}
+.lv-At{--c:var(--amber);--bgc:#fdf0cf;--fgc:#8a5a00}
+.lv-Critical{--c:var(--red);--bgc:#fde3e3;--fgc:#b42318}
+
+@media (max-width:980px){
+  nav ul li:not(:last-child){display:none}
+  .prow{grid-template-columns:1fr 1fr}.prow .name{grid-column:1/-1}.rm{grid-column:1/-1}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .res{grid-template-columns:1fr}
+  .panel{padding:24px}
+}
+@media print{
+  header,.steps,.actions,.report-status{display:none!important}
+  body{background:#fff}
+  main{padding:0}
+  .panel{border:0;padding:0}
+  .res,.stat,.dist{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 17.5 9 5 9-5" opacity=".6"/></svg></span>
+      <span>Smart<b>Grow</b></span>
+    </a>
+    <nav><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#how">How It Works</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li id="loginNavItem"><a href="login.html">Log in</a></li>
+      <li id="accountNavItem" class="account-wrap" hidden>
+        <button type="button" class="account-button" id="accountButton" aria-label="Account menu" aria-expanded="false" aria-controls="accountDropdown"></button>
+        <div class="account-dropdown" id="accountDropdown" hidden>
+          <p class="account-email" id="accountEmail"></p>
+          <button type="button" class="logout-button" id="logoutButton">Log out</button>
+        </div>
+      </li>
+    </ul></nav>
+  </div>
+</header>
+
+<main><div class="wrap">
+  <div class="steps" id="steps">
+    <div class="stepi active"><span>1</span>Business</div>
+    <div class="stepi"><span>2</span>Products</div>
+    <div class="stepi"><span>3</span>Risk report</div>
+  </div>
+
+  <!-- Step 1 -->
+  <section class="panel" id="s1">
+    <h1>What’s your business called?</h1>
+    <p class="sub">We’ll use this name on your risk report. Next, you’ll add your products.</p>
+    <div class="bizbox">
+      <label for="biz">Business name</label>
+      <input id="biz" type="text" placeholder="e.g. Fresh Mart" autocomplete="organization">
+      <p class="error hidden" id="err1" style="margin-top:8px">Enter your business name to continue.</p>
+    </div>
+    <div class="actions"><button class="btn btn-primary" id="to2">Continue →</button></div>
+  </section>
+
+  <!-- Step 2 -->
+  <section class="panel hidden" id="s2">
+    <h1>Add your products</h1>
+    <p class="sub">Enter how much you stocked and how much you sold. Pending stock is worked out for you.</p>
+    <div class="period">
+      <div><label for="period">Sales recorded over (days)</label><input id="period" type="number" min="1" value="30"></div>
+      <button class="btn btn-ghost" id="sample" type="button">Load sample data</button>
+    </div>
+    <div id="rows"></div>
+    <div class="actions">
+      <button class="btn btn-ghost" id="add" type="button">+ Add product</button>
+    </div>
+    <p class="error hidden" id="err2" style="margin-top:16px"></p>
+    <div class="actions">
+      <button class="btn btn-ghost" id="back1" type="button">← Back</button>
+      <button class="btn btn-primary" id="analyze" type="button">Predict risk</button>
+    </div>
+  </section>
+
+  <!-- Step 3 -->
+  <section class="panel hidden" id="s3">
+    <h1 id="rtitle">Risk report</h1>
+    <p class="sub">Here’s what needs attention and what to do about it.</p>
+    <div class="stats" id="stats"></div>
+    <div class="dist">
+      <div class="donut" id="donut"><div id="dtotal"></div></div>
+      <div class="legend" id="legend"></div>
+      <span class="src" id="src"></span>
+    </div>
+    <div id="results"></div>
+    <p class="report-status" id="reportStatus" role="status" aria-live="polite"></p>
+    <div class="actions">
+      <button class="btn btn-ghost" id="edit" type="button">← Edit products</button>
+      <button class="btn btn-ghost" id="downloadReport" type="button">Download PDF</button>
+      <button class="btn btn-primary" id="restart" type="button">Start over</button>
+    </div>
+  </section>
+</div></main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<script>
+(function () {
+const supabase = window.supabase?.createClient
+  ? window.supabase.createClient(
+      'https://xmsssdotlklljvpoejkc.supabase.co',
+      'sb_publishable_pjV4teuCoAp7RIsM9FGqSg_rjD8WI1L'
+    )
+  : null;
+const loginNavItem = document.getElementById('loginNavItem');
+const accountNavItem = document.getElementById('accountNavItem');
+const accountButton = document.getElementById('accountButton');
+const accountDropdown = document.getElementById('accountDropdown');
+
+function showAccount(user) {
+  loginNavItem.hidden = Boolean(user);
+  accountNavItem.hidden = !user;
+  if (user) {
+    const username = user.user_metadata?.username || user.email?.split('@')[0] || 'Account';
+    accountButton.textContent = username.charAt(0).toUpperCase();
+    accountButton.title = username;
+    document.getElementById('accountEmail').textContent = username;
+  } else {
+    accountDropdown.hidden = true;
+    accountButton.setAttribute('aria-expanded', 'false');
+  }
+}
+
+accountButton.addEventListener('click', () => {
+  accountDropdown.hidden = !accountDropdown.hidden;
+  accountButton.setAttribute('aria-expanded', String(!accountDropdown.hidden));
+});
+
+document.addEventListener('click', (event) => {
+  if (!accountNavItem.contains(event.target)) {
+    accountDropdown.hidden = true;
+    accountButton.setAttribute('aria-expanded', 'false');
+  }
+});
+
+document.getElementById('logoutButton').addEventListener('click', async () => {
+  if (!supabase) {
+    alert('Could not load Supabase. Check your internet connection and reload.');
+    return;
+  }
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    alert(`Could not log out: ${error.message}`);
+    return;
+  }
+  window.location.assign('index.html');
+});
+
+if (supabase) {
+  supabase.auth.onAuthStateChange((_event, session) => showAccount(session?.user ?? null));
+  supabase.auth.getSession().then(({ data, error }) => {
+    if (error) {
+      console.error('Could not read the Supabase session:', error);
+      return;
+    }
+    showAccount(data.session?.user ?? null);
+  });
+} else {
+  showAccount(null);
+}
+
+const API_URL = 'http://localhost:8080/api/analyze';   // Spring Boot backend
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const inr = n => '₹' + Math.round(n).toLocaleString('en-IN');
+const currencyForPdf = n => 'INR ' + Math.round(n).toLocaleString('en-IN');
+let latestReport = null;
+
+/* ---------- Wizard navigation ---------- */
+function show(n){
+  ['s1','s2','s3'].forEach((id,i)=>$('#'+id).classList.toggle('hidden', i!==n-1));
+  document.querySelectorAll('.stepi').forEach((el,i)=>{
+    el.classList.toggle('active', i===n-1);
+    el.classList.toggle('done', i<n-1);
+  });
+  window.scrollTo({top:0});
+}
+$('#to2').onclick = () => {
+  if(!$('#biz').value.trim()){ $('#err1').classList.remove('hidden'); $('#biz').focus(); return; }
+  $('#err1').classList.add('hidden'); show(2);
+};
+$('#biz').addEventListener('keydown', e => { if(e.key==='Enter') $('#to2').click(); });
+$('#back1').onclick = () => show(1);
+$('#edit').onclick = () => show(2);
+$('#restart').onclick = () => { $('#rows').innerHTML=''; addRow(); $('#biz').value=''; show(1); };
+
+/* ---------- Product rows ---------- */
+function addRow(d={}){
+  const el = document.createElement('div');
+  el.className = 'prow';
+  el.innerHTML = `
+    <div class="name"><label>Product</label><input data-k="name" type="text" placeholder="e.g. Milk Powder"></div>
+    <div><label>Quantity stocked</label><input data-k="quantity" type="number" min="0"></div>
+    <div><label>Sold</label><input data-k="sold" type="number" min="0"></div>
+    <div><label>Pending</label><input data-k="pending" readonly tabindex="-1" value="0"></div>
+    <div><label>Price per unit (₹)</label><input data-k="price" type="number" min="0"></div>
+    <div><label>Expires in (days)</label><input data-k="expiryDays" type="number" min="0" placeholder="optional"></div>
+    <button class="rm" type="button" aria-label="Remove product">✕</button>`;
+  const f = k => el.querySelector(`[data-k="${k}"]`);
+  Object.entries(d).forEach(([k,v]) => { if(v!=null) f(k).value = v; });
+  const upd = () => f('pending').value = Math.max(0, (+f('quantity').value||0) - (+f('sold').value||0));
+  f('quantity').oninput = f('sold').oninput = upd; upd();
+  el.querySelector('.rm').onclick = () => { if(document.querySelectorAll('.prow').length>1) el.remove(); };
+  $('#rows').appendChild(el);
+}
+$('#add').onclick = () => addRow();
+$('#sample').onclick = () => {
+  $('#biz').value ||= 'Fresh Mart'; $('#period').value = 30; $('#rows').innerHTML='';
+  [{name:'Milk Powder',quantity:60,sold:18,price:150,expiryDays:5},
+   {name:'Rice Bag (5kg)',quantity:100,sold:82,price:300},
+   {name:'Biscuits',quantity:200,sold:30,price:10,expiryDays:120},
+   {name:'Cooking Oil',quantity:40,sold:38,price:140,expiryDays:200}].forEach(addRow);
+};
+
+function collect(){
+  const products = [...document.querySelectorAll('.prow')].map(r => {
+    const g = k => r.querySelector(`[data-k="${k}"]`).value.trim();
+    return {name:g('name'), quantity:+g('quantity'), sold:+g('sold'), price:+g('price'),
+            expiryDays: g('expiryDays')===''? null : +g('expiryDays')};
+  });
+  return {businessName:$('#biz').value.trim(), periodDays:+$('#period').value, products};
+}
+function validate(req){
+  if(!(req.periodDays>0)) return 'Enter how many days your sales cover.';
+  for(const [i,p] of req.products.entries()){
+    const n = `Product ${i+1}`;
+    if(!p.name) return `${n}: enter a product name.`;
+    if(!(p.quantity>0)) return `${p.name}: quantity stocked must be more than 0.`;
+    if(p.sold<0 || p.sold>p.quantity) return `${p.name}: sold must be between 0 and the quantity stocked.`;
+    if(!(p.price>=0)) return `${p.name}: enter a price per unit.`;
+  }
+  return '';
+}
+
+/* ---------- Analysis: Java backend first, JS engine as fallback ---------- */
+$('#analyze').onclick = async () => {
+  const req = collect(), msg = validate(req), err = $('#err2');
+  if(msg){ err.textContent = msg; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+  const btn = $('#analyze'); btn.disabled = true; btn.textContent = 'Analyzing…';
+  let res, source;
+  try{
+    const ctrl = new AbortController(); const t = setTimeout(()=>ctrl.abort(), 3000);
+    const r = await fetch(API_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(req), signal:ctrl.signal});
+    clearTimeout(t); if(!r.ok) throw 0;
+    res = await r.json(); source = 'Analyzed by Java backend';
+  }catch(e){ res = analyzeLocal(req); source = 'Analyzed in browser (Java backend not running)'; }
+  btn.disabled = false; btn.textContent = 'Predict risk';
+  res.products.forEach(product => {
+    const input = req.products.find(item => item.name.toLowerCase() === product.name.toLowerCase());
+    product.aiRecommendations = createAIRecommendations(product, input, req.periodDays);
+  });
+  latestReport = {request: req, response: res, source};
+  render(res, source); show(3);
+  await saveReport(latestReport);
+};
+
+function createAIRecommendations(product, input, periodDays){
+  const tips = [];
+  const soldRate = input.quantity > 0 ? input.sold / input.quantity : 0;
+  const category = input.name.toLowerCase();
+  const categoryAdvice = [
+    {matches:/milk|dairy|yogurt|cheese|curd/, text:'For dairy, keep the cold chain intact and place the earliest-expiring units at the front.'},
+    {matches:/fruit|vegetable|produce|greens/, text:'For fresh produce, inspect quality daily and rotate older stock to the front.'},
+    {matches:/bread|bakery|cake/, text:'For bakery items, use smaller replenishment batches and mark down items before their best-before date.'},
+    {matches:/frozen|ice cream/, text:'For frozen items, check freezer temperature and avoid leaving products outside cold storage.'}
+  ].find(rule => rule.matches.test(category));
+
+  if(product.level === 'Critical' || product.level === 'At Risk'){
+    tips.push(`Prioritize "${product.name}" today; its calculated risk score is ${product.riskScore}/100 (${product.level}).`);
+  }else if(product.level === 'Low Risk'){
+    tips.push(`Review "${product.name}" during the next stock check; its calculated risk score is ${product.riskScore}/100.`);
+  }else{
+    tips.push(`Keep "${product.name}" on the normal weekly stock review; its current calculated risk is low.`);
+  }
+
+  if(input.expiryDays != null && product.pending > 0){
+    const expectedSales = product.dailySales * input.expiryDays;
+    const atRiskUnits = Math.max(0, Math.ceil(product.pending - expectedSales));
+    if(atRiskUnits > 0){
+      tips.push(`About ${atRiskUnits} units may remain when it expires in ${input.expiryDays} days; rotate these first and consider a timely promotion.`);
+    }else{
+      tips.push(`Current sales pace suggests stock may sell before its ${input.expiryDays}-day expiry; keep checking expiry dates.`);
+    }
+  }
+
+  if(product.pending === 0 || (product.depletionDays != null && product.depletionDays <= 7)){
+    const coverUnits = Math.max(0, Math.ceil(product.dailySales * 21 - product.pending));
+    tips.push(`Stock could run out soon. Check supplier lead time and plan a reorder of about ${Math.max(1, coverUnits)} units for three weeks of cover.`);
+  }else if(soldRate < 0.2){
+    tips.push(`Only ${Math.round(soldRate * 100)}% of the stocked quantity sold over ${periodDays} days; pause large reorders and test a small promotion or bundle.`);
+  }else if(soldRate < 0.4){
+    tips.push(`Sales are relatively slow (${Math.round(soldRate * 100)}% sell-through); compare pricing and shelf placement before replenishing.`);
+  }
+
+  if(categoryAdvice) tips.push(categoryAdvice.text);
+  return [...new Set(tips)].slice(0, 4);
+}
+
+async function saveReport(report){
+  const status = $('#reportStatus');
+  status.classList.remove('error');
+  if(!supabase){
+    status.classList.add('error');
+    status.textContent = 'Report is shown but was not saved: Supabase did not load. Check your internet connection and reload.';
+    return;
+  }
+
+  status.textContent = 'Saving report to Supabase…';
+  try{
+    const {data: sessionData, error: sessionError} = await supabase.auth.getSession();
+    if(sessionError) throw sessionError;
+    const user = sessionData.session?.user;
+    if(!user){
+      status.classList.add('error');
+      status.textContent = 'Report is shown but was not saved. Log in first, then create the report again.';
+      return;
+    }
+
+    const username = user.user_metadata?.username || user.email?.split('@')[0] || 'user';
+    const {error} = await supabase.from('inventory_reports').insert({
+      user_id: user.id,
+      username,
+      business_name: report.request.businessName,
+      input_data: report.request,
+      report_data: report
+    });
+    if(error) throw error;
+    status.textContent = 'Report and submitted product data saved to Supabase.';
+  }catch(error){
+    console.error('Could not save the risk report:', error);
+    status.classList.add('error');
+    status.textContent = `Report is shown but could not be saved: ${error.message || 'Supabase request failed'}. Check that the SQL setup has been run.`;
+  }
+}
+
+$('#downloadReport').onclick = () => {
+  if(!latestReport){
+    $('#reportStatus').textContent = 'Generate a risk report before downloading it.';
+    return;
+  }
+  if(!window.jspdf?.jsPDF){
+    $('#reportStatus').textContent = 'PDF library unavailable; use your browser print dialog and choose Save as PDF.';
+    window.print();
+    return;
+  }
+
+  const status = $('#reportStatus');
+  status.classList.remove('error');
+  status.textContent = 'Preparing your PDF report…';
+  try{
+  const {jsPDF} = window.jspdf;
+  const pdf = new jsPDF();
+  const margin = 16;
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  let y = 20;
+
+  const writeWrapped = (text, options={}) => {
+    const lines = pdf.splitTextToSize(text, pageWidth - margin * 2);
+    const lineHeight = options.lineHeight || 6;
+    if(y + lines.length * lineHeight > pageHeight - margin){
+      pdf.addPage();
+      y = 20;
+    }
+    pdf.setFont('helvetica', options.bold ? 'bold' : 'normal');
+    pdf.setFontSize(options.size || 10);
+    pdf.text(lines, margin, y);
+    y += lines.length * lineHeight + (options.after || 2);
+  };
+
+  const {request, response, source} = latestReport;
+  pdf.setFont('helvetica', 'bold');
+  pdf.setFontSize(18);
+  pdf.text('SmartGrow Inventory Risk Report', margin, y);
+  y += 10;
+  writeWrapped(`Business: ${request.businessName}`, {bold:true, size:12});
+  writeWrapped(`Generated: ${new Date().toLocaleString()}`);
+  writeWrapped(`Products: ${response.summary.total} | At risk or critical: ${response.summary.atRisk + response.summary.critical} | Estimated loss: ${currencyForPdf(response.summary.expectedLoss)}`);
+  writeWrapped(`Analysis: ${source}`);
+  writeWrapped('Recommendations use product, sales, expiry, and calculated risk data. They are rule-based decision support, not a substitute for professional judgment.', {size:9, after:5});
+
+  response.products.slice().sort((a,b)=>b.riskScore-a.riskScore).forEach(product => {
+    writeWrapped(`${product.name} - ${product.level} (${product.riskScore}/100)`, {bold:true, size:12, after:1});
+    writeWrapped(`Pending: ${product.pending} | Daily sales: ${Math.round(product.dailySales * 100) / 100} | Estimated loss: ${currencyForPdf(product.expectedLoss)}`);
+    writeWrapped(`Suggested action: ${product.action}. ${product.suggestion}`);
+    writeWrapped('Personalized recommendations:', {bold:true, after:1});
+    product.aiRecommendations.forEach(tip => writeWrapped(`- ${tip}`, {size:9, after:1}));
+    y += 4;
+  });
+
+  const pageCount = pdf.getNumberOfPages();
+  for(let page=1; page<=pageCount; page++){
+    pdf.setPage(page);
+    pdf.setFont('helvetica','normal');
+    pdf.setFontSize(8);
+    pdf.text(`SmartGrow - Page ${page} of ${pageCount}`, margin, pageHeight - 8);
+  }
+  const fileName = request.businessName.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || 'business';
+  pdf.save(`${fileName}-risk-report.pdf`);
+  status.textContent = 'Your PDF report has been generated.';
+  }catch(error){
+    console.error('Could not generate the PDF report:', error);
+    status.classList.add('error');
+    status.textContent = `Could not generate the PDF report: ${error.message || 'PDF generation failed'}.`;
+  }
+};
+
+/* Same rules as RiskEngine.java */
+function analyzeLocal(req){
+  const P = req.periodDays;
+  const items = req.products.map(p => {
+    const pending = Math.max(0, p.quantity - p.sold);
+    const daily = P>0 ? p.sold/P : 0;
+    const depletion = daily>0 ? pending/daily : null;
+    let unsold = 0, e = 0;
+    if(p.expiryDays!=null && pending>0){
+      unsold = Math.max(0, pending - daily*p.expiryDays);
+      const ratio = unsold/pending;
+      const boost = ratio>0 ? (p.expiryDays<=7?20 : p.expiryDays<=14?10 : 0) : 0;
+      e = Math.min(100, Math.round(ratio*100 + boost));
+    }
+    let s;
+    if(pending===0) s=100; else if(depletion==null) s=0;
+    else s = depletion<=3?100 : depletion<=7?80 : depletion<=14?50 : depletion<=30?20 : 0;
+    const st = p.quantity>0 ? p.sold/p.quantity : 0;
+    const sl = pending===0 ? 0 : st<.2?80 : st<.4?50 : st<.6?20 : 0;
+    let loss = 0;
+    if(p.expiryDays!=null && unsold>0) loss = unsold*p.price; else if(sl>=50) loss = pending*p.price*0.25;
+    return {p,pending,daily,depletion,e,s,sl,loss,unsold};
+  });
+  const total = Math.max(1, items.reduce((a,i)=>a+i.pending*i.p.price, 0));
+  const products = items.map(i => {
+    const f = Math.min(100, Math.round(i.loss/total*300));
+    const weighted = .35*i.e + .30*i.s + .15*i.sl + .20*f;
+    const score = Math.round(.6*weighted + .4*Math.max(i.e,i.s,i.sl,f));
+    const level = score<25?'Healthy' : score<50?'Low Risk' : score<75?'At Risk' : 'Critical';
+    const [action, suggestion] = recommend(i, level);
+    return {name:i.p.name, pending:i.pending, dailySales:i.daily, depletionDays:i.depletion,
+      riskScore:score, level, expectedLoss:i.loss, action, suggestion};
+  });
+  const c = l => products.filter(x=>x.level===l).length;
+  return {businessName:req.businessName, products, summary:{
+    total:products.length, healthy:c('Healthy'), low:c('Low Risk'), atRisk:c('At Risk'), critical:c('Critical'),
+    expectedLoss:products.reduce((a,x)=>a+x.expectedLoss,0),
+    reorderCount:products.filter(x=>x.action==='Reorder').length}};
+}
+function recommend(i, level){
+  const r1 = x => Math.round(x*10)/10, daily = r1(i.daily);
+  const reorderQty = Math.max(1, Math.ceil(i.daily*21 - i.pending));
+  if(i.pending===0) return ['Reorder', `Out of stock. Reorder about ${Math.max(1,Math.ceil(i.daily*21))} units to cover the next 3 weeks.`];
+  if(level==='Healthy') return ['No action', 'Stock is moving at a healthy pace. Keep monitoring.'];
+  if(i.e>=i.s && i.e>=i.sl){
+    const ratio = i.unsold/i.pending, d = ratio>.6?30 : ratio>.3?20 : 10;
+    return ['Discount + sell first', `About ${Math.ceil(i.unsold)} of ${i.pending} units may expire unsold. Sell these first and apply a ${d}% discount.`];
+  }
+  if(i.s>=i.sl) return ['Reorder', `At ${daily} units/day, stock runs out in ${r1(i.depletion)} days. Reorder about ${reorderQty} units.`];
+  if(i.p.sold===0) return ['Investigate', 'No sales recorded. Check pricing, shelf placement, or whether the item is still wanted.'];
+  return ['Run promotion', `Only ${Math.round(i.p.sold/i.p.quantity*100)}% of stock has sold. Try a promotion or bundle offer.`];
+}
+
+/* ---------- Render report ---------- */
+const LV = {'Healthy':'Healthy','Low Risk':'Low','At Risk':'At','Critical':'Critical'};
+function render(r, source){
+  const s = r.summary;
+  $('#rtitle').textContent = `${r.businessName}: risk report`;
+  $('#stats').innerHTML = [
+    ['Products analyzed', s.total],
+    ['At risk or critical', s.atRisk + s.critical],
+    ['Estimated loss', inr(s.expectedLoss)],
+    ['Need reorder', s.reorderCount]
+  ].map(([l,v]) => `<div class="stat"><small>${l}</small><b>${v}</b></div>`).join('');
+
+  const parts = [['Healthy',s.healthy,'var(--teal)'],['Low Risk',s.low,'var(--teal-mid)'],['At Risk',s.atRisk,'var(--amber)'],['Critical',s.critical,'var(--red)']];
+  let acc = 0;
+  $('#donut').style.background = 'conic-gradient(' + parts.map(([,n,c]) => {
+    const a = acc/s.total*100; acc += n; return `${c} ${a}% ${acc/s.total*100}%`;
+  }).join(',') + ')';
+  $('#dtotal').innerHTML = `<span>${s.total}<small>Products</small></span>`;
+  $('#legend').innerHTML = parts.map(([l,n,c]) => `<span style="--c:${c}">${l}<b>${n}</b></span>`).join('');
+  $('#src').textContent = source;
+
+  $('#results').innerHTML = [...r.products].sort((a,b)=>b.riskScore-a.riskScore).map(p => {
+    const days = p.depletionDays==null ? 'No sales trend' : `${Math.round(p.depletionDays*10)/10} days of stock left`;
+    const recommendations = p.aiRecommendations.map(tip => `<li>${esc(tip)}</li>`).join('');
+    return `<article class="res lv-${LV[p.level]}">
+      <div><h3>${esc(p.name)}</h3><p class="meta">${p.pending} pending · ${days}</p></div>
+      <div><div class="score"><div class="bar"><i style="width:${p.riskScore}%"></i></div><b>${p.riskScore}</b></div>
+        <span class="badge">${p.level}</span>${p.expectedLoss>0?`<p class="meta" style="margin-top:8px">Est. loss ${inr(p.expectedLoss)}</p>`:''}</div>
+      <div class="sug"><strong>${esc(p.action)}</strong>${esc(p.suggestion)}</div>
+      <div class="ai-plan"><strong>AI-style risk recommendations</strong><ul>${recommendations}</ul><p class="meta" style="margin-top:8px">Personalized rule-based guidance from this product's stock, sales, expiry, and risk score.</p></div>
+    </article>`;
+  }).join('');
+}
+
+addRow();
+})();
+</script>
+</body>
+</html>
